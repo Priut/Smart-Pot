@@ -1,0 +1,47 @@
+<div class="login-container"> 
+    <% if(u != null){ %>
+        Bine ai venit, <%=u%>! <a href="logout">Delogare</a>
+    <% } %>
+</div>
+<div>
+    <% if(flag) { %>
+        <p style="color:green;"> Umiditatea se află în parametrii doriți! Umiditatea actuală este: <%=humidity%>%</p>
+    <%} else { %>
+        <p style="color:red;"> Umiditatea nu se află în parametrii doriți! Umiditatea actuală este: <%=humidity%>%</p>
+    <%} %>
+    <br>
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
+        <script type="text/javascript">
+        window.setInterval('refresh()',10000);
+        function refresh(){
+            window.location.reload();
+        }
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable()
+            data.addColumn('string', 'Data');
+            data.addColumn('number', 'Umiditate');
+            let databaseEntries = JSON.parse('<%-JSON.stringify(data)%>')
+            
+            for( i in databaseEntries)
+            {   
+                data.addRow([databaseEntries[i].day, parseInt(databaseEntries[i].humidity)])
+               
+            }
+        
+
+            var options = {
+            title: 'Evoluția Umidității',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart_2'));
+
+            chart.draw(data, options);
+        }
+        </script>
+ <div id="curve_chart_2" onload="drawChart()" style="width: 1500px; height: 500px"></div>

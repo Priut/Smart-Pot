@@ -1,0 +1,15 @@
+<div>
+    <h2>Autentificare</h2>
+    <form action="/verificare-autentificare" method="post">
+        <label for="username"><b>Nume utilizator:</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+    
+        <label for="password"><b>Parolă: </b></label>
+        <input type="password" placeholder="Enter Password" name="password" required><br />
+        <input type="submit" value="Autentificare">
+    </form>
+    <p>
+        <%if(e!= null) %>
+        <p style="color:red;"><%=e %></p>
+    </p>
+</div>
